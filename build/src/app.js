@@ -2,9 +2,13 @@
 
 var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
-var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
+var _regenerator = _interopRequireDefault(
+  require("@babel/runtime/regenerator")
+);
 
-var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
+var _asyncToGenerator2 = _interopRequireDefault(
+  require("@babel/runtime/helpers/asyncToGenerator")
+);
 
 var _express = _interopRequireDefault(require("express"));
 
@@ -16,12 +20,9 @@ var _morgan = _interopRequireDefault(require("morgan"));
 
 var _cors = _interopRequireDefault(require("cors"));
 
-var _database = require("./config/database");
-
-var _gig = _interopRequireDefault(require("./routes/v1/gig"));
-
-var _auth = _interopRequireDefault(require("./routes/v1/auth"));
-
+// import { db } from "./config/database";
+// import gigRoutes from "./routes/v1/gig";
+// import authRoutes from "./routes/v1/auth";
 var app = (0, _express["default"])();
 (0, _dotenv.config)(); //middleware
 
@@ -30,33 +31,41 @@ app.use((0, _cors["default"])());
 app.use((0, _helmet["default"])()); // Parse incoming requests data
 
 app.use(_express["default"].json());
-app.use(_express["default"].urlencoded({
-  extended: false
-})); // app.get("/", (req, res) => {
-//   res.send("test server");
-// });
+app.use(
+  _express["default"].urlencoded({
+    extended: false,
+  })
+);
+app.get("/", function (req, res) {
+  res.send("test server");
+}); // app.use("/", gigRoutes);
+// app.use("/", authRoutes);
+// routes(app);
 
-app.use("/", _gig["default"]);
-app.use("/", _auth["default"]); // routes(app);
+app.listen(
+  process.env.APP_PORT,
+  /*#__PURE__*/ (0, _asyncToGenerator2["default"])(
+    /*#__PURE__*/ _regenerator["default"].mark(function _callee() {
+      return _regenerator["default"].wrap(function _callee$(_context) {
+        while (1) {
+          switch ((_context.prev = _context.next)) {
+            case 0:
+              // await db.sync();
+              console.log(
+                "Hi, I am running at http://"
+                  .concat(process.env.APP_HOST, ":")
+                  .concat(process.env.APP_PORT, "/")
+              );
 
-app.listen(process.env.APP_PORT, /*#__PURE__*/(0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee() {
-  return _regenerator["default"].wrap(function _callee$(_context) {
-    while (1) {
-      switch (_context.prev = _context.next) {
-        case 0:
-          _context.next = 2;
-          return _database.db.sync();
-
-        case 2:
-          console.log("Hi, I am running at http://".concat(process.env.APP_HOST, ":").concat(process.env.APP_PORT, "/"));
-
-        case 3:
-        case "end":
-          return _context.stop();
-      }
-    }
-  }, _callee);
-}))); // //dependencies
+            case 1:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    })
+  )
+); // //dependencies
 // import express from "express";
 // import cors from "cors";
 // import passport from "passport";

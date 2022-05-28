@@ -1,3 +1,2 @@
+// module.exports.authValidation = require("./auth.validation");
 "use strict";
-
-module.exports.authValidation = require("./auth.validation");

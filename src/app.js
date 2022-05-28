@@ -3,10 +3,9 @@ import { config } from "dotenv";
 import helmet from "helmet";
 import morgan from "morgan";
 import cors from "cors";
-import { db } from "./config/database";
-import gigRoutes from "./routes/v1/gig";
-import authRoutes from "./routes/v1/auth";
-
+// import { db } from "./config/database";
+// import gigRoutes from "./routes/v1/gig";
+// import authRoutes from "./routes/v1/auth";
 const app = express();
 
 config();
@@ -20,15 +19,15 @@ app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// app.get("/", (req, res) => {
-//   res.send("test server");
-// });
-app.use("/", gigRoutes);
-app.use("/", authRoutes);
+app.get("/", (req, res) => {
+  res.send("test server");
+});
+// app.use("/", gigRoutes);
+// app.use("/", authRoutes);
 // routes(app);
 
 app.listen(process.env.APP_PORT, async () => {
-  await db.sync();
+  // await db.sync();
   console.log(
     `Hi, I am running at http://${process.env.APP_HOST}:${process.env.APP_PORT}/`
   );
